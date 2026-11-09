@@ -173,6 +173,6 @@ async function api(req, res, pathname) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  try { if (url.pathname.startsWith('/api/')) return await api(req, res, url.pathname); const file = url.pathname === '/' ? 'frontend/index.html' : url.pathname.slice(1); const full = path.join(ROOT, file); if (!full.startsWith(ROOT) || !fs.existsSync(full)) return json(res, 404, { error: 'Não encontrado.' }); res.writeHead(200, { 'Content-Type': MIME[path.extname(full)] || 'text/plain' }); fs.createReadStream(full).pipe(res); } catch (e) { console.error(e); json(res, 500, { error: 'Erro interno.' }); }
+  try { if (url.pathname === '/') { res.writeHead(302, { Location: '/frontend/index.html' }); return res.end(); } if (url.pathname.startsWith('/api/')) return await api(req, res, url.pathname); const file = url.pathname.slice(1); const full = path.join(ROOT, file); if (!full.startsWith(ROOT) || !fs.existsSync(full)) return json(res, 404, { error: 'Não encontrado.' }); res.writeHead(200, { 'Content-Type': MIME[path.extname(full)] || 'text/plain' }); fs.createReadStream(full).pipe(res); } catch (e) { console.error(e); json(res, 500, { error: 'Erro interno.' }); }
 });
 server.listen(PORT, () => console.log(`TAG Servicos de Torno e Solda Ltda - Sistema de Ponto em http://localhost:${PORT}`));

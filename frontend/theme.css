@@ -208,3 +208,217 @@ tbody tr:hover { background: #f8f9fd; }
   .table-wrap { margin-inline: -2px; }
   .toast { left: 14px; right: 14px; top: 14px; }
 }
+
+/* Refinamentos para celulares pequenos */
+@media (max-width: 560px) {
+  html { scroll-padding-top: 16px; }
+  body { overflow-x: hidden; }
+
+  .nav {
+    height: 68px;
+    padding-inline: 16px;
+  }
+
+  .nav .brand {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .nav .brand-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+  }
+
+  .brand-name small {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+
+  .menu {
+    display: grid;
+    flex: 0 0 44px;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-left: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--blue-pale);
+    color: var(--blue);
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .nav-links.open {
+    top: calc(100% + 1px);
+    padding: 10px 16px 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  .nav-links.open a {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links.open .btn-outline {
+    justify-content: center;
+    margin-top: 6px;
+  }
+
+  .hero {
+    padding: 42px 20px 28px;
+  }
+
+  .eyebrow {
+    margin-bottom: 17px;
+    font-size: 9px;
+    letter-spacing: 1.7px;
+  }
+
+  .hero h1 {
+    font-size: clamp(50px, 14vw, 66px);
+    letter-spacing: -1px;
+  }
+
+  .hero-text {
+    margin: 21px 0 24px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hero-actions .btn-primary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .text-link {
+    align-self: center;
+    padding: 8px 0;
+  }
+
+  .stats {
+    gap: 0;
+    justify-content: space-between;
+    margin-top: 38px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .stats strong { font-size: 32px; }
+  .stats small { font-size: 9px; }
+
+  .hero-art {
+    min-height: 270px;
+    height: 270px;
+    margin-top: 20px;
+  }
+
+  .ring { right: 4%; }
+  .ring-two { right: calc(4% + 39px); }
+
+  .art-card {
+    top: 47px;
+    right: 14%;
+    width: 184px;
+    height: 210px;
+    padding: 23px;
+  }
+
+  .bolt {
+    margin-bottom: 14px;
+    font-size: 50px;
+  }
+
+  .art-card strong { font-size: 22px; }
+  .vertical-label { top: 125px; right: 0; font-size: 9px; }
+
+  .section {
+    padding: 56px 20px;
+  }
+
+  .section-head h2,
+  .about h2 {
+    font-size: clamp(38px, 11vw, 48px);
+  }
+
+  .section-head>p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .service-card {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .service-card .icon {
+    margin-bottom: 24px;
+  }
+
+  .service-card h3 { font-size: 28px; }
+
+  .service-card p {
+    max-width: none;
+    margin: 15px 0 20px;
+  }
+
+  .about {
+    gap: 24px;
+  }
+
+  .about-visual {
+    height: 240px;
+  }
+
+  .about-logo {
+    width: 220px;
+    height: 220px;
+  }
+
+  .about-copy>p:not(.eyebrow) {
+    margin: 20px 0;
+    font-size: 13px;
+  }
+
+  .about-list {
+    grid-template-columns: 1fr;
+    gap: 11px;
+    font-size: 11px;
+  }
+
+  .cta {
+    padding: 44px 20px;
+  }
+
+  .cta h2 { font-size: clamp(42px, 11vw, 52px); }
+  .cta .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  footer {
+    padding: 24px 20px;
+  }
+
+  footer .brand-name { font-size: 16px; }
+  footer p { font-size: 9px; line-height: 1.5; }
+}
