@@ -1,0 +1,10 @@
+{
+  "name": "sistema-de-ponto-fatec",
+  "version": "1.0.0",
+  "description": "Sistema de ponto para empresa de tornearia, usinagem e solda",
+  "private": true,
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  }
+}

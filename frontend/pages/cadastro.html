@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro | TAG Serviços de Torno e Solda</title>
+    <link rel="icon" type="image/png" href="/TGA.png">
+    <link rel="stylesheet" href="/frontend/pages/cadastro.css">
+    <link rel="stylesheet" href="/frontend/theme.css">
+  </head>
+  <body>
+    <main class="register-page">
+      <section class="register-intro">
+        <a class="brand" href="/">
+          <img class="brand-logo" src="/TGA.png" alt="Logo TAG">
+          <strong>TAG SERVIÇOS<small>TORNO E SOLDA LTDA</small></strong>
+        </a>
+        <div>
+          <p class="eyebrow">PRIMEIRO ACESSO</p>
+          <h1>Faça parte da<br><em>nossa equipe.</em></h1>
+          <p>Crie seu acesso ao sistema de ponto e acompanhe sua jornada de trabalho.</p>
+        </div>
+        <a class="back" href="/frontend/pages/login.html">&larr; Já tenho cadastro</a>
+      </section>
+
+      <section class="register-card" aria-labelledby="register-title">
+        <div class="register-heading">
+          <p class="eyebrow"><i></i> NOVA CONTA</p>
+          <h2 id="register-title">Crie seu<br><em>cadastro.</em></h2>
+          <p>Preencha seus dados para acessar como liderado.</p>
+        </div>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <form id="registerForm">
+          <div class="form-grid">
+            <label for="name">
+              Nome completo
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                minlength="2"
+                maxlength="80"
+                pattern="[A-Za-zÀ-ÖØ-öø-ÿĀ-ž]+([ '-][A-Za-zÀ-ÖØ-öø-ÿĀ-ž]+)*"
+                title="Use somente letras, espaços, hífen ou apóstrofo."
+                required
+                placeholder="Seu nome completo"
+              >
+            </label>
+            <label for="cpf">
+              CPF
+              <input
+                id="cpf"
+                name="cpf"
+                type="text"
+                inputmode="numeric"
+                autocomplete="tax-id"
+                maxlength="14"
+                pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                title="Digite um CPF válido. A pontuação é preenchida automaticamente."
+                required
+                placeholder="000.000.000-00"
+              >
+            </label>
+            <label for="phone">
+              Telefone
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                maxlength="15"
+                pattern="\(\d{2}\) \d{4,5}-\d{4}"
+                title="Digite um telefone com DDD. A pontuação é preenchida automaticamente."
+                required
+                placeholder="(00) 00000-0000"
+              >
+            </label>
+            <label for="cep">
+              CEP
+              <input
+                id="cep"
+                name="cep"
+                type="text"
+                inputmode="numeric"
+                autocomplete="postal-code"
+                maxlength="9"
+                pattern="\d{5}-\d{3}"
+                title="Digite um CEP com oito números. A pontuação é preenchida automaticamente."
+                required
+                placeholder="00000-000"
+              >
+            </label>
+            <label class="wide" for="address">
+              Endereço
+              <input
+                id="address"
+                name="address"
+                type="text"
+                autocomplete="street-address"
+                minlength="5"
+                maxlength="120"
+                required
+                placeholder="Rua, número e bairro"
+              >
+            </label>
+            <label class="wide" for="email">
+              E-mail pessoal
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                maxlength="254"
+                pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                title="Digite um e-mail válido, como nome@exemplo.com."
+                required
+                placeholder="voce@email.com"
+              >
+            </label>
+            <label for="password">
+              Senha
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                maxlength="128"
+                required
+                placeholder="Mínimo 6 caracteres"
+              >
+            </label>
+            <label for="passwordConfirm">
+              Confirmar senha
+              <input
+                id="passwordConfirm"
+                name="passwordConfirm"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                maxlength="128"
+                required
+                placeholder="Repita sua senha"
+              >
+            </label>
+          </div>
+
+          <button class="btn-primary" type="submit">Criar meu cadastro <b>&rarr;</b></button>
+        </form>
+
+        <p class="legal">Ao criar sua conta, você concorda com o uso dos dados para controle de jornada.</p>
+      </section>
+    </main>
+
+    <script src="/frontend/pages/cadastro.js"></script>
+  </body>
+</html>

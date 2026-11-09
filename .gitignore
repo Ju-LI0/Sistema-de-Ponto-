@@ -1,0 +1,43 @@
+# Dependências do Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs e arquivos temporários
+*.log
+logs/
+tmp/
+temp/
+
+# Arquivos gerados por ferramentas e builds
+dist/
+build/
+coverage/
+.cache/
+.parcel-cache/
+.next/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos locais de desenvolvimento
+*.local
+*.bak
+*.backup

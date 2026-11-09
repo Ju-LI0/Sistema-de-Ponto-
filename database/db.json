@@ -1,0 +1,128 @@
+{
+  "users": [
+    {
+      "id": "usr-gestor",
+      "name": "Marcos Almeida",
+      "email": "gestor@tagservicos.com.br",
+      "cpf": "000.000.000-00",
+      "phone": "(11) 99999-0000",
+      "address": "Av. Industrial, 1250",
+      "cep": "01310-000",
+      "role": "gestor",
+      "position": "Gestor geral",
+      "passwordHash": "demo",
+      "active": true,
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "usr-liderado",
+      "name": "Ana Souza",
+      "email": "ana@tagservicos.com.br",
+      "cpf": "111.111.111-11",
+      "phone": "(11) 98888-1111",
+      "address": "Rua das Oficinas, 45",
+      "cep": "01311-000",
+      "role": "liderado",
+      "position": "Técnica de usinagem",
+      "passwordHash": "demo",
+      "active": true,
+      "createdAt": "2026-01-12T08:00:00.000Z"
+    }
+  ],
+  "punches": [
+    {
+      "id": "54dd645a75",
+      "userId": "usr-liderado",
+      "date": "2026-10-30",
+      "type": "entrada",
+      "time": "2026-10-30T22:04:07.887Z"
+    },
+    {
+      "id": "d38dc867d0",
+      "userId": "usr-liderado",
+      "date": "2026-10-30",
+      "type": "almoco_saida",
+      "time": "2026-10-30T22:04:12.100Z"
+    },
+    {
+      "id": "19663e1f28",
+      "userId": "usr-liderado",
+      "date": "2026-10-30",
+      "type": "almoco_volta",
+      "time": "2026-10-30T22:04:13.055Z"
+    },
+    {
+      "id": "b826f70680",
+      "userId": "usr-liderado",
+      "date": "2026-10-31",
+      "type": "entrada",
+      "time": "2026-10-31T16:03:52.942Z"
+    },
+    {
+      "id": "2a65334f77",
+      "userId": "usr-liderado",
+      "date": "2026-10-31",
+      "type": "almoco_saida",
+      "time": "2026-10-31T16:03:53.607Z"
+    },
+    {
+      "id": "be09cce2db",
+      "userId": "usr-liderado",
+      "date": "2026-10-31",
+      "type": "almoco_volta",
+      "time": "2026-10-31T16:03:54.231Z"
+    },
+    {
+      "id": "c39094234e",
+      "userId": "usr-liderado",
+      "date": "2026-10-31",
+      "type": "saida",
+      "time": "2026-10-31T16:04:20.454Z"
+    },
+    {
+      "id": "e67e29b676",
+      "userId": "usr-liderado",
+      "date": "2026-11-03",
+      "type": "entrada",
+      "time": "2026-11-03T16:39:35.098Z"
+    }
+  ],
+  "reports": [
+    {
+      "id": "d38ba92cee",
+      "userId": "usr-liderado",
+      "date": "2026-10-31",
+      "activities": "Solda e entre outras",
+      "tomorrow": "Continuar nossas atividades ",
+      "status": "aprovado",
+      "createdAt": "2026-10-31T16:18:28.853Z",
+      "reviewedAt": "2026-10-31T16:19:12.285Z",
+      "reviewedBy": "usr-gestor"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "6a4f4ed94cad7456dd9e5dcf009aa464bcebe3ff0c5d0c2322eeff6e8e2fd955",
+      "userId": "usr-liderado",
+      "createdAt": "2026-11-03T16:39:20.859Z"
+    },
+    {
+      "token": "6a6acf8c18f6fbbca221182a919d1a94e11ba253c8e45c88a8426b81e8dd3335",
+      "userId": "usr-gestor",
+      "createdAt": "2026-11-08T16:38:24.520Z"
+    }
+  ],
+  "resetTokens": [],
+  "justifications": [
+    {
+      "id": "b8932dcd42",
+      "userId": "usr-liderado",
+      "date": "2026-12-10",
+      "reason": "Estive no hopital e não consegui comparecer",
+      "status": "aprovada",
+      "createdAt": "2026-10-31T16:18:22.200Z",
+      "reviewedAt": "2026-10-31T16:19:15.173Z",
+      "reviewedBy": "usr-gestor"
+    }
+  ]
+}
