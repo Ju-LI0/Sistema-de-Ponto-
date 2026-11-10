@@ -8,6 +8,36 @@ const addressInput = document.querySelector('#address');
 const emailInput = document.querySelector('#email');
 const passwordInput = document.querySelector('#password');
 const passwordConfirmInput = document.querySelector('#passwordConfirm');
+const apiBaseUrl = (document.querySelector('meta[name="api-base-url"]')?.content || '').replace(/\/+$/, '');
+
+function apiUrl(path) {
+  return `${apiBaseUrl}${path}`;
+}
+
+async function readApiResponse(response) {
+  const responseText = await response.text();
+  let result = {};
+
+  if (responseText.trim()) {
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      if (responseText.trimStart().startsWith('<')) {
+        throw new Error(
+          'O servidor do cadastro não está disponível neste endereço. '
+          + 'Inicie o backend com “npm start” e abra o sistema em http://localhost:3000.',
+        );
+      }
+      throw new Error('O servidor retornou uma resposta inválida. Tente novamente.');
+    }
+  }
+
+  if (!response.ok) {
+    throw new Error(result.error || 'Não foi possível criar o cadastro.');
+  }
+
+  return result;
+}
 
 function showMessage(text, isSuccess = false) {
   message.textContent = text;
@@ -69,35 +99,64 @@ function isValidCpf(value) {
     && calculateDigit(10) === Number(cpf[10]);
 }
 
-cpfInput.addEventListener('input', () => {
-  cpfInput.value = formatCpf(onlyDigits(cpfInput.value, 11));
-  cpfInput.setCustomValidity(
-    cpfInput.value.length === 14 && !isValidCpf(cpfInput.value)
-      ? 'CPF inválido. Confira os números digitados.'
+function isValidName(value) {
+  return /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u.test(value.trim());
+}
+
+function updateNameValidity() {
+  const value = nameInput.value.trim();
+  nameInput.setCustomValidity(
+    value && !isValidName(value)
+      ? 'Informe um nome usando somente letras, espaços, hífen ou apóstrofo.'
       : '',
   );
-});
+}
 
-phoneInput.addEventListener('input', () => {
-  phoneInput.value = formatPhone(onlyDigits(phoneInput.value, 11));
-  phoneInput.setCustomValidity('');
-});
+function updateCpfValidity() {
+  const digitCount = onlyDigits(cpfInput.value, 11).length;
+  cpfInput.setCustomValidity(
+    digitCount > 0 && (digitCount !== 11 || !isValidCpf(cpfInput.value))
+      ? 'Informe um CPF válido com 11 números.'
+      : '',
+  );
+}
 
-phoneInput.addEventListener('blur', () => {
+function updatePhoneValidity() {
   const digitCount = onlyDigits(phoneInput.value, 11).length;
   phoneInput.setCustomValidity(
     digitCount > 0 && digitCount !== 10 && digitCount !== 11
       ? 'Informe um telefone com DDD e 10 ou 11 números.'
       : '',
   );
+}
+
+function updateCepValidity() {
+  const digitCount = onlyDigits(cepInput.value, 8).length;
+  cepInput.setCustomValidity(
+    digitCount > 0 && digitCount !== 8
+      ? 'Informe um CEP com oito números.'
+      : '',
+  );
+}
+
+cpfInput.addEventListener('input', () => {
+  cpfInput.value = formatCpf(onlyDigits(cpfInput.value, 11));
+  updateCpfValidity();
+});
+
+phoneInput.addEventListener('input', () => {
+  phoneInput.value = formatPhone(onlyDigits(phoneInput.value, 11));
+  updatePhoneValidity();
 });
 
 cepInput.addEventListener('input', () => {
   cepInput.value = formatCep(onlyDigits(cepInput.value, 8));
+  updateCepValidity();
 });
 
 nameInput.addEventListener('input', () => {
-  nameInput.value = nameInput.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿĀ-ž' -]/g, '');
+  nameInput.value = nameInput.value.replace(/[^\p{L}\p{M}'’ -]/gu, '');
+  updateNameValidity();
 });
 
 addressInput.addEventListener('input', () => {
@@ -106,6 +165,9 @@ addressInput.addEventListener('input', () => {
 
 emailInput.addEventListener('input', () => {
   emailInput.value = emailInput.value.replace(/\s/g, '');
+  emailInput.setCustomValidity(
+    emailInput.validity.typeMismatch ? 'Informe um e-mail válido, como nome@exemplo.com.' : '',
+  );
 });
 
 passwordConfirmInput.addEventListener('input', () => {
@@ -133,22 +195,20 @@ form.addEventListener('submit', async (event) => {
   delete data.passwordConfirm;
 
   try {
-    const response = await fetch('/api/register', {
+    const response = await fetch(apiUrl('/api/register'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error || 'Não foi possível criar o cadastro.');
-    }
+    await readApiResponse(response);
 
     showMessage('Cadastro criado. Seu acesso aguarda aprovação dos gestores. Redirecionando...', true);
     setTimeout(() => {
-      location.href = '/frontend/pages/login.html';
+      location.href = 'login.html';
     }, 1800);
   } catch (error) {
-    showMessage(error.message);
+    showMessage(error instanceof TypeError
+      ? 'Não foi possível conectar ao servidor do cadastro. Inicie o backend e tente novamente.'
+      : error.message);
   }
 });

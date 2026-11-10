@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Deixe vazio para usar a API no mesmo endereço. Em produção, informe a URL do backend. -->
+    <meta name="api-base-url" content="">
     <title>Cadastro | TAG Serviços de Torno e Solda</title>
     <link rel="icon" type="image/png" href="../../TGA.png">
     <link rel="stylesheet" href="cadastro.css">
@@ -43,7 +45,6 @@
                 autocomplete="name"
                 minlength="2"
                 maxlength="80"
-                pattern="[A-Za-zÀ-ÖØ-öø-ÿĀ-ž]+([ '-][A-Za-zÀ-ÖØ-öø-ÿĀ-ž]+)*"
                 title="Use somente letras, espaços, hífen ou apóstrofo."
                 required
                 placeholder="Seu nome completo"
@@ -58,7 +59,6 @@
                 inputmode="numeric"
                 autocomplete="tax-id"
                 maxlength="14"
-                pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                 title="Digite um CPF válido. A pontuação é preenchida automaticamente."
                 required
                 placeholder="000.000.000-00"
@@ -73,7 +73,6 @@
                 inputmode="numeric"
                 autocomplete="tel"
                 maxlength="15"
-                pattern="\(\d{2}\) \d{4,5}-\d{4}"
                 title="Digite um telefone com DDD. A pontuação é preenchida automaticamente."
                 required
                 placeholder="(00) 00000-0000"
@@ -88,7 +87,6 @@
                 inputmode="numeric"
                 autocomplete="postal-code"
                 maxlength="9"
-                pattern="\d{5}-\d{3}"
                 title="Digite um CEP com oito números. A pontuação é preenchida automaticamente."
                 required
                 placeholder="00000-000"
@@ -115,7 +113,6 @@
                 type="email"
                 autocomplete="email"
                 maxlength="254"
-                pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
                 title="Digite um e-mail válido, como nome@exemplo.com."
                 required
                 placeholder="voce@email.com"
