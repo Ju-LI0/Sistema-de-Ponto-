@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sistema-de-ponto-api
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: database
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1

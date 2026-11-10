@@ -8,10 +8,17 @@ const addressInput = document.querySelector('#address');
 const emailInput = document.querySelector('#email');
 const passwordInput = document.querySelector('#password');
 const passwordConfirmInput = document.querySelector('#passwordConfirm');
-const apiBaseUrl = (document.querySelector('meta[name="api-base-url"]')?.content || '').replace(/\/+$/, '');
+const apiBaseUrl = (window.APP_CONFIG?.apiBaseUrl
+  || document.querySelector('meta[name="api-base-url"]')?.content
+  || '').replace(/\/+$/, '');
 
-function apiUrl(path) {
-  return `${apiBaseUrl}${path}`;
+const registerApiUrl = path => `${apiBaseUrl}${path}`;
+
+function unavailableApiMessage() {
+  const localHost = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
+  return localHost
+    ? 'O servidor do cadastro não está disponível. Execute “npm start” e acesse http://localhost:3000.'
+    : 'Este site está hospedado sem o backend do cadastro. Publique a API Node.js e configure a URL em api-base-url.';
 }
 
 async function readApiResponse(response) {
@@ -23,10 +30,7 @@ async function readApiResponse(response) {
       result = JSON.parse(responseText);
     } catch {
       if (responseText.trimStart().startsWith('<')) {
-        throw new Error(
-          'O servidor do cadastro não está disponível neste endereço. '
-          + 'Inicie o backend com “npm start” e abra o sistema em http://localhost:3000.',
-        );
+        throw new Error(unavailableApiMessage());
       }
       throw new Error('O servidor retornou uma resposta inválida. Tente novamente.');
     }
@@ -195,7 +199,7 @@ form.addEventListener('submit', async (event) => {
   delete data.passwordConfirm;
 
   try {
-    const response = await fetch(apiUrl('/api/register'), {
+    const response = await fetch(registerApiUrl('/api/register'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -207,8 +211,6 @@ form.addEventListener('submit', async (event) => {
       location.href = 'login.html';
     }, 1800);
   } catch (error) {
-    showMessage(error instanceof TypeError
-      ? 'Não foi possível conectar ao servidor do cadastro. Inicie o backend e tente novamente.'
-      : error.message);
+    showMessage(error instanceof TypeError ? unavailableApiMessage() : error.message);
   }
 });

@@ -57,6 +57,7 @@ function isValidPhone(value) {
 
 async function api(req, res, pathname) {
   const db = readDb();
+  if (req.method === 'GET' && pathname === '/api/health') return json(res, 200, { status: 'ok' });
   if (req.method === 'POST' && pathname === '/api/login') {
     const { email, password, role } = await body(req);
     const user = db.users.find(u => u.email.toLowerCase() === String(email).toLowerCase() && u.role === role && u.active);
@@ -173,6 +174,6 @@ async function api(req, res, pathname) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  try { if (url.pathname === '/') { res.writeHead(302, { Location: '/frontend/index.html' }); return res.end(); } if (url.pathname.startsWith('/api/')) return await api(req, res, url.pathname); const file = url.pathname.slice(1); const full = path.join(ROOT, file); if (!full.startsWith(ROOT) || !fs.existsSync(full)) return json(res, 404, { error: 'Não encontrado.' }); res.writeHead(200, { 'Content-Type': MIME[path.extname(full)] || 'text/plain' }); fs.createReadStream(full).pipe(res); } catch (e) { console.error(e); json(res, 500, { error: 'Erro interno.' }); }
+  try { if (url.pathname.startsWith('/api/') && req.method === 'OPTIONS') { res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type, Authorization', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS' }); return res.end(); } if (url.pathname === '/') { res.writeHead(302, { Location: '/frontend/index.html' }); return res.end(); } if (url.pathname.startsWith('/api/')) return await api(req, res, url.pathname); const file = url.pathname.slice(1); const full = path.join(ROOT, file); if (!full.startsWith(ROOT) || !fs.existsSync(full)) return json(res, 404, { error: 'Não encontrado.' }); res.writeHead(200, { 'Content-Type': MIME[path.extname(full)] || 'text/plain' }); fs.createReadStream(full).pipe(res); } catch (e) { console.error(e); json(res, 500, { error: 'Erro interno.' }); }
 });
-server.listen(PORT, () => console.log(`TAG Servicos de Torno e Solda Ltda - Sistema de Ponto em http://localhost:${PORT}`));
+server.listen(PORT, '0.0.0.0', () => console.log(`TAG Servicos de Torno e Solda Ltda - Sistema de Ponto em http://localhost:${PORT}`));
