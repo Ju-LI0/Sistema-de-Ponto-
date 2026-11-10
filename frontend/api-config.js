@@ -1,7 +1,7 @@
 // Informe aqui a URL pública do backend depois de publicá-lo.
 // Exemplo: https://sistema-de-ponto-api.onrender.com
 window.APP_CONFIG = Object.freeze({
-  apiBaseUrl: '',
+  apiBaseUrl: 'https://sistema-de-ponto-mgt7.onrender.com',
 });
 
 window.apiUrl = function apiUrl(path) {
